@@ -30,14 +30,13 @@ export default function Login() {
       return;
     }
     if (otp !== "1234") {
-      // Replace with actual OTP validation logic
       toast.error("Invalid OTP. Please try again.");
       return;
     }
 
     console.log("OTP Verified:", otp);
     toast.success("OTP has been verified successfully!");
-    navigate("/"); // Redirect to the desired page after successful verification
+    navigate("/"); 
   };
 
   return (
