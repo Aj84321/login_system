@@ -8,16 +8,16 @@ export default function Login() {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
 
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
   const handleMobileNumber = (e) => {
     setMobileNumber(e.target.value);
   };
 
   const handleSendOtpClick = (e) => {
     e.preventDefault();
-    if(mobileNumber.length !==10){
-        toast.error('Mobile number must be exactly 10 digits!');
-        return;
+    if (mobileNumber.length !== 10) {
+      toast.error("Mobile number must be exactly 10 digits!");
+      return;
     }
     console.log("OTP Sent:", otp);
     setOtpSent(true);
@@ -25,24 +25,23 @@ export default function Login() {
   };
   const handleOtpVerify = (e) => {
     e.preventDefault();
-    if(otp.length !==4){
-        toast.error('Please Enter OTP');
-        return;
-
+    if (otp.length !== 4) {
+      toast.error("Please Enter OTP");
+      return;
     }
-    if (otp !== "1234") { // Replace with actual OTP validation logic
-        toast.error("Invalid OTP. Please try again.");
-        return;
-      }
-  
-      console.log("OTP Verified:", otp);
-      toast.success("OTP has been verified successfully!");
-      navigate("/"); // Redirect to the desired page after successful verification
-    };
+    if (otp !== "1234") {
+      // Replace with actual OTP validation logic
+      toast.error("Invalid OTP. Please try again.");
+      return;
+    }
+
+    console.log("OTP Verified:", otp);
+    toast.success("OTP has been verified successfully!");
+    navigate("/"); // Redirect to the desired page after successful verification
+  };
 
   return (
     <>
-      <h1>Login</h1>
       <Toaster
         toastOptions={{
           className: "",
@@ -57,6 +56,8 @@ export default function Login() {
       <form>
         {!otpSent && (
           <>
+            <h2>Log in or Sign Up</h2>
+
             <label>Mobile Number:</label>
             <input
               type="number"
@@ -70,14 +71,16 @@ export default function Login() {
 
         {otpSent && (
           <>
+            <h2>OTP Verification</h2>
+
             <label>Otp:</label>
             <OTPInput
-  value={otp}
-  onChange={setOtp}
-  numInputs={4}
-  renderSeparator={<span>-</span>}
-  renderInput={(props) => <input {...props} />}
-/>
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              renderSeparator={<span>-</span>}
+              renderInput={(props) => <input {...props} />}
+            />
 
             <button onClick={handleOtpVerify}>Verify OTP</button>
           </>
