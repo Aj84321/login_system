@@ -65,12 +65,13 @@ export default function Login() {
           <>
             <label>Otp:</label>
             <OTPInput
-              value={otp}
-              onChange={setOtp}
-              numInputs={4}
-              renderSeparator={<span>-</span>}
-              renderInput={(props) => <input {...props} />}
-            />
+  value={otp}
+  onChange={setOtp}
+  numInputs={4}
+  renderSeparator={<span>-</span>}
+  renderInput={(props) => <input {...props} />}
+/>
+
             <button onClick={handleOtpVerify}>Verify OTP</button>
           </>
         )}
