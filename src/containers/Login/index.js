@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import toast, { ToastBar, Toaster } from "react-hot-toast";
 import OTPInput from "react-otp-input";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
 
-
+  const navigate = useNavigate() 
   const handleMobileNumber = (e) => {
     setMobileNumber(e.target.value);
   };
@@ -29,9 +30,15 @@ export default function Login() {
         return;
 
     }
-    console.log("OTP Verified:", otp);
-    toast.success("OTP has been Verfied!");
-  };
+    if (otp !== "1234") { // Replace with actual OTP validation logic
+        toast.error("Invalid OTP. Please try again.");
+        return;
+      }
+  
+      console.log("OTP Verified:", otp);
+      toast.success("OTP has been verified successfully!");
+      navigate("/"); // Redirect to the desired page after successful verification
+    };
 
   return (
     <>
