@@ -64,6 +64,8 @@ export default function Login() {
               value={mobileNumber}
               onChange={handleMobileNumber}
             />
+            <br />
+
             <button onClick={handleSendOtpClick}>Send OTP</button>
             <br />
           </>
