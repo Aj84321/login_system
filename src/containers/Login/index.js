@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
+  const [otpSented, setOtpSent] = useState(false);
 
   const navigate = useNavigate();
   const handleMobileNumber = (e) => {
@@ -53,7 +53,7 @@ export default function Login() {
       />
 
       <form>
-        {!otpSent && (
+        {!otpSented && (
           <>
             <h2>Log in or Sign Up</h2>
 
@@ -70,7 +70,7 @@ export default function Login() {
           </>
         )}
 
-        {otpSent && (
+        {otpSented && (
           <>
             <h2>OTP Verification</h2>
 
