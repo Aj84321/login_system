@@ -36,7 +36,8 @@ export default function Login() {
 
     console.log("OTP Verified:", otp);
     toast.success("OTP has been verified successfully!");
-    navigate("/"); 
+    sessionStorage.setItem("isLoggedIn",true);
+    navigate("/profile");
   };
 
   return (

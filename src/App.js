@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './containers/Home';
 import Login from './containers/Login';
+import Profile from './containers/Profile';
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+
 
         </Routes>
     </BrowserRouter>
