@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import toast, { ToastBar, Toaster } from "react-hot-toast";
 import OTPInput from "react-otp-input";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../Redux/authSlice";
 
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSented, setOtpSent] = useState(false);
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleMobileNumber = (e) => {
     setMobileNumber(e.target.value);
@@ -36,7 +40,8 @@ export default function Login() {
 
     console.log("OTP Verified:", otp);
     toast.success("OTP has been verified successfully!");
-    sessionStorage.setItem("isLoggedIn",true);
+    // sessionStorage.setItem("isLoggedIn",true);
+    dispatch(login());
     navigate("/profile");
   };
 
@@ -88,6 +93,8 @@ export default function Login() {
           </>
         )}
       </form>
+      <h2><Link to="/">Home</Link></h2>
+
     </>
   );
 }
