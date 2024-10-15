@@ -8,7 +8,13 @@ import { login } from "../Redux/authSlice";
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [otpSented, setOtpSent] = useState(false);
+  const [screen, setScreen] = useState(1);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
+  const [age, setAge] = useState("");
+
+
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
@@ -24,9 +30,10 @@ export default function Login() {
       return;
     }
     console.log("OTP Sent:", otp);
-    setOtpSent(true);
+    setScreen(2);
     toast.success("OTP has been sent successfully!");
   };
+
   const handleOtpVerify = (e) => {
     e.preventDefault();
     if (otp.length !== 4) {
@@ -40,10 +47,56 @@ export default function Login() {
 
     console.log("OTP Verified:", otp);
     toast.success("OTP has been verified successfully!");
-    // sessionStorage.setItem("isLoggedIn",true);
-    dispatch(login());
+    setScreen(3);
+
+
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (!name || !email) {
+  //     toast.error("Please fill in both Name and Email.");
+  //     return;
+  //   }
+  //   console.log("Name:", name);
+  //   console.log("Email:", email);
+  //   toast.success("Details have been saved successfully!");
+  
+  //   // Dispatch login action to update Redux state
+  //   dispatch(login());
+  
+  //   // Navigate to profile after successful submission
+  //   navigate("/profile");
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !email) {
+      toast.error("Please fill in both Name and Email.");
+      return;
+    }
+  
+    const userName = name;
+    const userEmail = email;
+    const userAge = age;
+    const userId = id;
+      
+    console.log("Name:", name);
+    console.log("Email:", email);
+    toast.success("Details have been saved successfully!");
+  
+    // Dispatch login with user details
+    dispatch(login({
+      name: userName,
+      email: userEmail,
+      age: userAge,
+      id: userId,
+    }));
+  
     navigate("/profile");
   };
+  
+  
 
   return (
     <>
@@ -59,7 +112,7 @@ export default function Login() {
       />
 
       <form>
-        {!otpSented && (
+        {screen === 1 && (
           <>
             <h2>Log in or Sign Up</h2>
 
@@ -76,7 +129,7 @@ export default function Login() {
           </>
         )}
 
-        {otpSented && (
+        {screen === 2 && (
           <>
             <h2>OTP Verification</h2>
 
@@ -92,9 +145,48 @@ export default function Login() {
             <button onClick={handleOtpVerify}>Verify OTP</button>
           </>
         )}
-      </form>
-      <h2><Link to="/">Home</Link></h2>
 
+        {screen === 3 && (
+          <>
+            <h2>Required Details</h2>
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <br />
+
+            <label>Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+                       <label>Age:</label>
+            <input
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+            />
+            <br />
+
+            <label>ID:</label>
+            <input
+              type="text"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+            <br />
+            <button className="center-text" onClick={handleSubmit}>
+              Save
+            </button>
+          </>
+        )}
+      </form>
+      <h2>
+        <Link to="/">Home</Link>
+      </h2>
     </>
   );
 }
